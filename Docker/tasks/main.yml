@@ -1,3 +1,8 @@
 ---
 # tasks file for Docker
-- name: 
+- name: check installation docker
+  include: check.yml
+
+- name: install docker
+  include: install.yml
+  when: docker_version_client | length == 0 or "{{ docker_version_client }}" == "{{ docker_version }}"

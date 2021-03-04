@@ -1,0 +1,11 @@
+# checking installation
+- name: get install variable
+  shell:
+    cmd: docker -v | awk '{print $3}'
+  args: /bin/bash
+  register: docker_version_client
+  ignore_errors: yes
+
+- name: print version
+  debug:
+    var: docker_version_client
