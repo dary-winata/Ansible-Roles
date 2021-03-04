@@ -1,3 +1,4 @@
+---
 # checking installation
 - name: get install variable
   shell:
