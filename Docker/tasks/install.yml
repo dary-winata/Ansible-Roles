@@ -1,3 +1,4 @@
+---
 # install docker
 - name: uninstall all previous docker
   yum:
