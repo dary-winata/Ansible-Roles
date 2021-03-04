@@ -1,5 +1,4 @@
 ---
-# checking installation
 - name: get install variable
   shell:
     cmd: docker -v | awk '{print $3}'

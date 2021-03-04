@@ -1,5 +1,4 @@
 ---
-# tasks file for Docker
 - name: check installation docker
   include: check.yml
 
