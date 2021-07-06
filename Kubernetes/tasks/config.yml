@@ -1,0 +1,8 @@
+--- 
+- name: run master config
+  include: config-master.yml
+  when:  type == "Master"
+
+- name: run node config
+  include: config-node.yml
+  when: type == "Node"

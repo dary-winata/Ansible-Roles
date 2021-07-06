@@ -1,31 +1,24 @@
 ---
-- name: uninstall all previous docker
-  yum:
-    name:
-    - docker
-    - docker-client
-    - docker-client-latest
-    - docker-common
-    - docker-latest
-    - docker-latest-logrotate
-    - docker-logrotate
-    - docker-engine
-  state: removed
-
-- name: install docker rpm from repo
-  yum:
-    name: https://download.docker.com/linux/centos/docker-ce.repo
-    state: present
+- name: add repo
+  yum_repository:
+    name: docker
+    description: Docker CE Stable - $basearch
+    baseurl: https://download.docker.com/linux/centos/$releasever/$basearch/stable
+    enabled: yes
+    gpgcheck: yes
+    gpgkey: https://download.docker.com/linux/centos/gpg
 
 - name: install docker
   yum:
-    name:
-    - docker-ce-"{{ docker_version }}"
-    - docker-ce-"{{ docker_version }}"
-    - containerd.io-"{{ docker_version }}"
+    name: ["docker-ce", "docker-ce-cli", "containerd.io"]
 
-- name: enable and start docker
-  systemd:
+- name: service enable and start
+  service:
     name: docker
     state: started
     enabled: yes
+
+- name: Add vagrant user to docker group
+  user:
+    name: vagrant
+    group: docker
