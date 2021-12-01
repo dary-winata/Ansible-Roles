@@ -1,0 +1,21 @@
+---
+- name: import rpm
+  rpm_key:
+    state: present
+    key: https://rpm.dl.getenvoy.io/public/gpg.CF716AF503183491.key
+
+- name: add repo with curl
+  get_url:
+    url: https://rpm.dl.getenvoy.io/public/config.rpm.txt?distro=el&codename=7
+    dest: /etc/yum.repos.d/envoy.repo
+
+# - name: add repo
+#   yum_repository:
+#     name: envoy
+#     description: envoy HA
+#     baseurl: https://rpm.dl.getenvoy.io/public/config.rpm.txt?distro=el&codename=7
+
+- name: install envoy
+  yum:
+    name: getenvoy-envoy
+    state: latest

@@ -1,0 +1,18 @@
+---
+- name: get join command
+  shell: sshpass -p root ssh root@192.168.56.105 "kubeadm token create --print-join-command"
+  register: join_command
+
+- name: get ca key
+  shell: sshpass -p root ssh root@192.168.56.105 "kubeadm init phase upload-certs --upload-certs"
+  register: ca_certs
+
+- name: register join command
+  add_host:
+    name: "join"
+    command: "{{ join_command.stdout }} --control-plane --certificate-key {{ ca_certs.stdout_lines[2] }}"
+
+- name: copy admin.conf to kube config
+  copy:
+    src: /etc/kubernetes/admin.conf
+    dest: $HOME/.kube/config

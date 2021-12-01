@@ -1,0 +1,5 @@
+---
+envoy_server_version: "1.18.2"
+envoy_install_version: "1.18.2-p0.gd362e79-1p75.g76c310e.x86_64"
+kubemasters:
+  - 192.168.56.105

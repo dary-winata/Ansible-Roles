@@ -1,0 +1,19 @@
+---
+# defaults file for Docker
+kubernetes_user_version: 1.22.3
+type: Master
+kubernetes_server_ip: "192.168.56.107:10050"
+kubernetes_server_name: "kubemaster1"
+kubernetes_server_network: "192.168.0.0/16"
+network_dir: "/tmp/kube-network"
+config: True
+apply: False
+port_master:
+  - 6443
+  - "2379-2380"
+  - 10250
+  - 10251
+  - 10252
+port_worker:
+  - 10250
+  - "30000-32767"

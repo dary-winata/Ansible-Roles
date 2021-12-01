@@ -1,0 +1,15 @@
+---
+- name: curl data helm
+  uri: 
+    url: https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+    dest: /var/helm_install.sh
+    
+- name: chmod file
+  file:
+    dest: /var/helm_install.sh
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: run installation 
+  shell: /var/helm_install.sh

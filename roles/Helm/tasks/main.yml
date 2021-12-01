@@ -1,0 +1,8 @@
+---
+# tasks file for helm
+- name: check helm installation
+  include: check.yml
+
+- name: install docker server version
+  include: install.yml
+  when: helm_version.stdout | length == 0 or helm_version.stdout != helm_version_target

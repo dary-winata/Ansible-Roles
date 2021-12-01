@@ -1,0 +1,33 @@
+---
+- name: init kube cluster
+  shell:
+    cmd: "kubeadm init --control-plane-endpoint {{ kubernetes_server_ip }} --pod-network-cidr={{ kubernetes_server_network }} --upload-certs"
+  args:
+    executable: /bin/bash
+    
+- name: Generate join command
+  shell:
+    cmd: kubeadm token create --print-join-command
+  args:
+    executable: /bin/bash
+  register: join_command
+
+- name: add .kube directory
+  shell:
+    cmd: "{{ item }}" 
+  args:
+    executable: /bin/bash
+  with_items:
+    - mkdir -p $HOME/.kube
+    - cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+    - chown $(id -u):$(id -g) $HOME/.kube/config
+
+- name: download calico manifest
+  get_url:
+    url: https://docs.projectcalico.org/manifests/calico-typha.yaml  
+    dest: /var/calico.yaml
+    mode: '0664'
+
+- name: apply calico manifest
+  shell:
+    cmd: kubectl apply -f /var/calico.yaml

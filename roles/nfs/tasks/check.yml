@@ -1,0 +1,12 @@
+---
+- name: get rpc installation value
+  shell:
+    cmd: ps aux | grep nfsd
+  args:
+    executable: /bin/bash
+  register: nfs_installed
+  ignore_errors: yes
+
+- name: cek output
+  debug:
+    msg: "{{ nfs_installed }}"

@@ -1,0 +1,10 @@
+---
+- name: check version envoy
+  shell:
+    cmd: envoy --version | awk '{FS="/"; printf $2}'
+  register: envoy_client_version
+  ignore_errors: yes
+
+- name: testing output
+  debug:
+    msg: "{{ envoy_client_version.stdout }}"

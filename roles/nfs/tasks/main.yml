@@ -1,0 +1,12 @@
+---
+# tasks file for docker
+# - name: check docker version
+#   include: check.yml
+
+- name: install nfs-utils
+  include: install.yml
+  # when: nfs_installed.stdout | length == 0
+
+- name: config nfs server
+  include: config.yaml
+  when: nfs_server

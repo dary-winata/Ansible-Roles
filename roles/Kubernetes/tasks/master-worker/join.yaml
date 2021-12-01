@@ -1,0 +1,18 @@
+---
+- name: get controll plane join command
+  include: join_control_plane.yaml
+  when: type == "Control_Plane"
+
+- name: get worker join command
+  include: join_worker.yaml
+  when: type == "Node"
+
+- name: run join
+  shell:
+    cmd: "{{ hostvars['join']['command'] }}"
+
+- name: create .kube directory
+  file:
+    path: $HOME/.kube
+    state: directory
+    mode: 0755

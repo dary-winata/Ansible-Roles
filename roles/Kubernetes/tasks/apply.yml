@@ -1,0 +1,6 @@
+---
+- name: kube apply
+  shell:
+    cmd: kubectl apply -f "{{ kubefile_directory }}"
+  args:
+    executable: /bin/bash

@@ -1,0 +1,11 @@
+---
+- name: get join command
+  shell: 
+    cmd: kubeadm token create --print-join-command
+  delegate_to: "{{ groups['kubemaster'][0] }}"
+  register: join_command
+
+- name: register join command
+  add_host:
+    name: "join"
+    command: "{{ join_command.stdout }}"

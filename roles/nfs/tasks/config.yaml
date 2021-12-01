@@ -1,0 +1,19 @@
+---
+- name: create file nfs folder
+  file:
+    path: /storage-nfs/
+    state: directory
+    owner: root
+    group: root
+    mode: '0777'
+- name: templating /etc/exports
+  template:
+    src: exports
+    dest: /etc/exports
+    owner: root
+    group: root
+- name: exports nfs 
+  shell:
+    cmd: exportfs -a
+  args:
+    executable: /bin/bash

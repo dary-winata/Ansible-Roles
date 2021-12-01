@@ -1,0 +1,10 @@
+---
+- name: create etc file for envoy
+  file:
+    path: /etc/envoy
+    state: directory
+
+- name: copy template
+  template:
+    src: envoy-config.j2
+    dest: /etc/envoy/envoy.yaml

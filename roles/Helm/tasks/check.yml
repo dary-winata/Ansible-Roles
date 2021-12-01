@@ -1,0 +1,11 @@
+- name: get install variable
+  shell:
+    cmd: helm version | awk '{print $1}' | sed 's/.*v//; s/\"\,//g'
+  args:
+    executable: /bin/bash
+  register: helm_version
+  ignore_errors: yes
+
+- name: print installed docker
+  debug:
+    var: helm_version.stdout

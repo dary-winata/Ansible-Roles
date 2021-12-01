@@ -1,0 +1,21 @@
+---
+- name: install nfs-utils
+  yum:
+    name: nfs-utils
+    state: latest
+
+- name: enable and start service
+  service:
+    name: nfs
+    state: started
+    enabled: yes
+
+- name: open firewall
+  firewalld:
+    service: "{{ item }}"
+    permanent: yes
+    state: enabled
+  loop:
+    - "nfs"
+    - "rpc-bind"
+    - "mountd"
