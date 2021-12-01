@@ -1,0 +1,11 @@
+- name: config node awal
+  hosts: control_plane
+  remote_user: root
+  become: yes
+  
+  vars:
+    - type: "Control_Plane"
+  roles:
+    - Docker
+    - Kubernetes
+    - Helm

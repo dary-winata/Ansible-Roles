@@ -1,0 +1,7 @@
+- name: testing ansible
+  hosts: testing
+  remote_user: root
+  become: yes
+
+  roles:
+    - HA
